@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>FastAPI Example</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/css/styles.css" />
+        <link rel="stylesheet" href="/css/base-styles.css" />
+        <link rel="stylesheet" href="/css/neuomorphic-styles.css" />
+    </head>
+    <body>
+        <main id="main-page" class="main-page d-flex-col h-100">
+            <div class="welcome-card pos-rel neuo-box-shadows-lg neuo-concave-lighting d-flex-col m-auto jc-center ai-center">
+                <div class="neon-ring"></div>
+                <div>
+                    <div class="welcome-title no-select">
+                        <p>Welcome to</p>
+                        <h1>Chatolin!</h1>
+                    </div>
+                    <p class="welcome-description no-select">A simple <b>FastAPI</b>-served, <b>LLM</b>-based chatbot.</p>
+                </div>
+                <button id="start-new-chat" class="neuo-box-shadows-md">Let's Chat!</button>
+            </div>
+        </main>
+
+        <main id="chat-window" class="chat-window d-flex-col h-100" style="display: none;">
+            <div class="chat-container d-flex-col m-auto neuo-box-shadows-lg neuo-flat-lighting">
+                <div class="chat-header">
+                    <h2>Chat Window</h2>
+                </div>
+                <div class="chat-messages">
+                    <p>Messages will appear here...</p>
+                </div>
+                <div class="chat-input-container">
+                    <input type="text" placeholder="Type your message here..." />
+                    <button id="back-to-main" class="neuo-box-shadows-md">Back</button>
+                </div>
+            </div>
+        </main>
+    </body>
+    <script src="/js/script.js"></script>
+</html>

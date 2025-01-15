@@ -1,24 +1,24 @@
 import fastapi
+from fastapi.staticfiles import StaticFiles
 
-from llms.core import LangchainApp
-from llms.groq import model
+# from llms.core import LangchainApp
+# from llms.groq import model
 
 
-def main():
-    langchain_app = LangchainApp(model=model)
-    langchain_app.send_message(msg="Hi! I'm Bob", thread_id='1')
-    second_msg = "Complete this phrase with my name: If 'x' had called the police, this would never have happened!"
-    response = langchain_app.send_message(msg=second_msg, thread_id='1')
-    response["messages"][-1].pretty_print()
+# langchain_app = LangchainApp(model=model)
 
 
 app = fastapi.FastAPI()
-@app.get("/")
-def hello():
-    return {"message": "Hello World"}
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
+
+
+@app.get("/a")
+def hello(message: str):
+    # llm_response = langchain_app.send_message(msg=message, thread_id='1')
+    # return {"messages": [{"sender": msg.type, "content": msg.content } for msg in llm_response["messages"]]}
+    ...
 
 
 if __name__ == "__main__":
     import uvicorn
-    # uvicorn.run(app, host="0.0.0.0", port=8000)
-    main()
+    uvicorn.run(app, host="0.0.0.0", port=8000)

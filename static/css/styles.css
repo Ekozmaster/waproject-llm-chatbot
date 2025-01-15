@@ -1,0 +1,53 @@
+
+
+.welcome-card {
+    position: relative;
+    border-radius: 10000px;
+    padding: 20px;
+    text-align: center;
+    width: 30rem;
+    height: 30rem;
+}
+
+.welcome-card .welcome-title {
+    font-size: 1.8rem;
+    font-weight: 300;
+    padding: 0;
+    margin: 0 0 2rem 0;
+    pointer-events: none;
+}
+
+.welcome-card .welcome-title p {
+    padding: 0;
+    margin: 0;
+}
+
+.welcome-card .welcome-title h1 {
+    font-size: 3.2rem;
+    font-weight: 800;
+    padding: 0;
+    margin: 0;
+}
+
+.welcome-card h1 {
+    font-weight: 800;
+}
+
+#start-new-chat {
+    background-color: var(--color-main-blue);
+    color: inherit;
+    padding: 1.0rem 2rem;
+    border-radius: 10000px;
+    border: none;
+    margin-top: 2rem;
+    text-transform: uppercase;
+    font-weight: 900;
+}
+
+#start-new-chat:hover {
+    background-color: white;
+    color: var(--color-carbon);
+    cursor: pointer;
+    transform: scale(1.05);
+    transition: transform 0.15s;
+}
