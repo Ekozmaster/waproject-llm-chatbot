@@ -1,8 +1,9 @@
 :root {
-    --color-carbon: #1a1a1a;
+    --color-carbon: rgb(36, 36, 36);
+    --color-carbon-dark: rgb(22, 22, 22);
     --color-neon-blue: rgb(174, 209, 255);
     --color-neon-blue-dark: rgb(43, 113, 204);
-    --color-main-blue: rgb(23, 95, 189);
+    --color-main-blue: rgb(11, 140, 190);
 }
 
 * {
@@ -15,8 +16,9 @@ html {
 }
 
 body {
+    position: relative;
     font-family: "Raleway", sans-serif;
-    background-color: #1a1a1a;
+    background-image: linear-gradient(155deg, var(--color-carbon) 45%, rgb(14, 14, 14));
     color: #e0e0e0;
     height: 100%;
     width: 100%;
@@ -24,6 +26,84 @@ body {
     min-height: 100vh;
     padding: 0;
     margin: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+
+body::before {
+    --size: min(90vw, 90vh);
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--size);
+    height: var(--size);
+    transform: translate(-50%, -50%);
+    border: solid 10px white;
+    border-radius: 10000px;
+    box-sizing: border-box;
+    mask:
+      repeating-conic-gradient(
+         from 0.5deg,
+         #0000002c  0 0.3deg,
+         #0000 0 1.5deg
+       );
+    animation: dash-spin-360 70s linear infinite;
+}
+
+body .hover-panel-effect::before {
+    --size: min(90vw, 90vh);
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--size);
+    height: var(--size);
+    transform: translate(-50%, -50%);
+    border: solid 25px white;
+    border-radius: 10000px;
+    box-sizing: border-box;
+    mask:
+      repeating-conic-gradient(
+         from 0.5deg,
+         #0000002c  0 0.3deg,
+         #0000 0 5.8deg
+       );
+    animation: dash-spin-360 70s linear infinite;
+}
+
+@keyframes dash-spin-360 {
+    0% {
+        transform-origin: top left;
+        transform: rotate(0) translate(-50%, -50%);
+    }
+    100% {
+        transform-origin: top left;
+        transform: rotate(360deg) translate(-50%, -50%);
+    }
+}
+
+body::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("/images/Grid.png");
+    z-index: -1;
+    mask-image: radial-gradient(circle at center, transparent 35%, #00000007 50%);
+}
+
+body .hover-panel-effect {
+    position: absolute;
+    top: 0;
+    left: 20%;
+    width: 60%;
+    height: 100%;
+    /* a slanted panel with box shadow similar to material ui floaty pages */
+    box-shadow: 0 0 18px 5px rgba(0, 0, 0, 0.3);
+    transform: skewX(10deg) skewY(30deg);
 }
 
 .d-flex-row {

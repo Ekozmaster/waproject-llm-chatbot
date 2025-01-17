@@ -7,12 +7,14 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/css/styles.css" />
         <link rel="stylesheet" href="/css/base-styles.css" />
         <link rel="stylesheet" href="/css/neuomorphic-styles.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/2.1.0/showdown.min.js"></script>
     </head>
     <body>
+        <div class="hover-panel-effect"></div>
         <main id="main-page" class="main-page d-flex-col h-100">
+            <link rel="stylesheet" href="/css/main-page-styles.css" />
             <div class="welcome-card pos-rel neuo-box-shadows-lg neuo-concave-lighting d-flex-col m-auto jc-center ai-center">
                 <div class="neon-ring"></div>
                 <div>
@@ -22,22 +24,29 @@
                     </div>
                     <p class="welcome-description no-select">A simple <b>FastAPI</b>-served, <b>LLM</b>-based chatbot.</p>
                 </div>
-                <button id="start-new-chat" class="neuo-box-shadows-md">Let's Chat!</button>
+                <div id="start-new-chat" class="btn-bg neuo-box-shadows-md">
+                    <div class="start-new-chat-btn neuo-box-shadows-md">Let's Chat!</div>
+                </div>
             </div>
         </main>
 
         <main id="chat-window" class="chat-window d-flex-col h-100" style="display: none;">
-            <div class="chat-container d-flex-col m-auto neuo-box-shadows-lg neuo-flat-lighting">
-                <div class="chat-header">
-                    <h2>Chat Window</h2>
+            <link rel="stylesheet" href="/css/chat-window-styles.css" />
+            <div class="chat-container d-flex-col jc-center ai-center m-auto neuo-box-shadows-lg">
+                <div class="chat-header d-flex-row jc-center ai-center w-100 h-100">
+                    <button id="back-to-main" class="back-to-main neuo-box-shadows-sm d-flex-row ai-center jc-center"><img src="/images/arrow-left-solid.svg"></button>
+                    <h2 class="no-select">New Chat</h2>
                 </div>
-                <div class="chat-messages">
-                    <p>Messages will appear here...</p>
+                <p id="ask-something" class="no-select">Ask something like: What is Music Theory? How Airplanes are made? Why is the sky blue?</p>
+                <div id="chat-messages-parent" class="chat-messages-parent neuo-box-shadows-inset-sm" style="display: none">
+                    <div id="chat-messages" class="chat-messages">
+                        <div id="chat-messages-container" class="chat-messages-container d-flex-col jc-end"></div>
+                    </div>
                 </div>
-                <div class="chat-input-container">
-                    <input type="text" placeholder="Type your message here..." />
-                    <button id="back-to-main" class="neuo-box-shadows-md">Back</button>
-                </div>
+                <form id="chat-form" class="chat-input-container d-flex-row jc-center ai-center w-100">
+                    <input type="text" name="message" class="neuo-box-shadows-inset-sm" placeholder="Type your message here..." required autocomplete="off" />
+                    <button id="send-button" class="neuo-box-shadows-md" type="submit">Send</button>
+                </form>
             </div>
         </main>
     </body>

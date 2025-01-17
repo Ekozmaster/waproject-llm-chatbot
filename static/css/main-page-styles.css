@@ -1,0 +1,98 @@
+
+
+.welcome-card {
+    position: relative;
+    border-radius: 10000px;
+    padding: 20px;
+    text-align: center;
+    width: 30rem;
+    height: 30rem;
+}
+
+.welcome-card .welcome-title {
+    font-size: 1.8rem;
+    font-weight: 300;
+    padding: 0;
+    margin: 0 0 2rem 0;
+    pointer-events: none;
+}
+
+.welcome-card .welcome-title p {
+    padding: 0;
+    margin: 0;
+}
+
+.welcome-card .welcome-title h1 {
+    font-size: 3.2rem;
+    font-weight: 800;
+    padding: 0;
+    margin: 0;
+}
+
+.welcome-card h1 {
+    font-weight: 800;
+}
+
+.main-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.main-page.main-page-fadeout .welcome-card {
+    pointer-events: none;
+    transform: scale(1.3);
+    opacity: 0;
+    filter: blur(20px);
+    transition: transform 0.5s, opacity 0.3s 0.2s, filter 0.3s 0.2s;
+}
+
+.main-page-fadeout .welcome-card *:not(.neon-ring) {
+    opacity: 0;
+    transition: opacity 0.5s;
+    pointer-events: none;
+}
+
+.btn-go {
+    position: relative;
+}
+
+.btn-bg {
+    border-radius: 10000px;
+    background-image: linear-gradient(to right, var(--color-main-blue) 0%, rgb(8, 105, 143) 15%, rgb(8, 105, 143) 80%, rgb(7, 82, 112));
+    margin-top: 2rem;
+    cursor: pointer;
+}
+
+.main-page-fadeout .btn-bg {
+    background-image: none;
+    background-color: transparent;
+    pointer-events: none;
+}
+
+.start-new-chat-btn {
+    background-color: var(--color-main-blue);
+    color: inherit;
+    padding: 1.0rem 2rem;
+    border-radius: 10000px;
+    border: none;
+    text-transform: uppercase;
+    font-weight: 900;
+}
+
+.btn-bg:hover .start-new-chat-btn {
+    transform: translateY(-0.7rem);
+    transition: transform 0.15s;
+}
+
+.btn-bg:active .start-new-chat-btn {
+    background-color: gray;
+    color: var(--color-carbon);
+    transform: translateY(0rem);
+    transition: transform 0.075s;
+    box-shadow: 0.7rem 0.7rem 15px 5px rgba(0, 0, 0, 0.3) inset,
+               -0.5rem -0.5rem 15px 5px rgba(255, 255, 255, 0.07) inset;
+}
