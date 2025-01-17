@@ -3,4 +3,5 @@ langchain==0.3.14
 langchain-core==0.3.29
 langchain-groq==0.2.3
 langgraph==0.2.62
+langgraph-checkpoint-sqlite==2.0.3
 uvicorn==0.34.0

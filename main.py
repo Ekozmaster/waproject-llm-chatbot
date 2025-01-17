@@ -22,13 +22,24 @@ async def send_message(messages: ChatMessage):
     return {"messages": [{"sender": msg.type, "content": msg.content } for msg in llm_response["messages"]]}
 
 
-# get endpoint to retrieve langchain messages to frontend
 @app.get("/langchain-messages/")
 async def get_langchain_messages():
     messages = langchain_app.get_chat_history('1')
     if not messages:
         return {"messages": []}
     return {"messages": [{"sender": msg.type, "content": msg.content} for msg in messages]}
+
+
+@app.delete("/delete-langchain-messages/")
+async def delete_langchain_messages():
+    langchain_app.delete_messages('1')
+
+    # Retrieving the messages after deletion in case there was a silenced error on the Langchain side.
+    messages = langchain_app.get_chat_history('1')
+    if not messages:
+        return {"messages": []}
+    return {"messages": [{"sender": msg.type, "content": msg.content} for msg in messages]}
+
 
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
 

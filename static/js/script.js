@@ -18,9 +18,6 @@ document.getElementById("back-to-main").addEventListener("click", function () {
 
 
 
-
-
-
 let chatMessages = [];  // [{ sender: 'human' or 'ai', content: 'message content' }, ...]
 
 const RefreshChatMessages = () => {
@@ -47,7 +44,6 @@ const RefreshChatMessages = () => {
 
 document.addEventListener('DOMContentLoaded', async function() {
     chatMessages = [];
-    // make a get to retrieve the chat history at /langchain-messages/
 
     const response = await fetch('/langchain-messages/');
     if (!response.ok) {
@@ -57,6 +53,8 @@ document.addEventListener('DOMContentLoaded', async function() {
     chatMessages = data.messages;
     RefreshChatMessages();
 });
+
+
 
 // Chat form submission
 const form = document.getElementById('chat-form');
@@ -81,12 +79,28 @@ form.addEventListener('submit', async (event) => {
         const messagesResponse = await response.json();
         chatMessages = messagesResponse.messages;
         RefreshChatMessages();
-        console.log(chatMessages);
-
-        // destroy and refill div.chat-messages-container with chatMessages
 
     } catch (error) {
         console.error('Error:', error.message);
         alert('Failed to send the message. Please try again.');
+    }
+});
+
+
+
+// Delete chat history button
+document.getElementById('delete-chat-history').addEventListener('click', async () => {
+    const confirmed = confirm('Are you sure you want to delete the chat history?');
+    if (confirmed) {
+        const response = await fetch('/delete-langchain-messages/', {
+            method: 'DELETE'
+        });
+        if(!response.ok) {
+            throw new Error('Failed to delete chat history');
+        }
+        const data = await response.json();
+        chatMessages = data.messages;
+        RefreshChatMessages();
+        document.getElementById('ask-something').style.display = 'flex';
     }
 });

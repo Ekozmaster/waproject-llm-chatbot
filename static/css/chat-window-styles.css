@@ -33,7 +33,7 @@
     gap: 1rem;
     max-width: 80vw;
     max-height: 90vh;
-    min-width: 20rem;
+    min-width: 60rem;
     background-color: var(--color-carbon);
 }
 
@@ -66,6 +66,34 @@
 }
 
 .chat-header .back-to-main:hover img {
+    filter: invert(1) brightness(1);
+    transition: filter 0.2s;
+}
+
+.chat-header .delete-chat-history {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 10000px;
+    border: solid 2px rgba(0, 0, 0, 0.2);
+    background-color: var(--color-carbon-dark);
+    color: #e0e0e0;
+    font-size: 1.2rem;
+    font-weight: 500;
+    outline: none;
+    z-index: 1;
+    cursor: pointer;
+}
+
+.chat-header .delete-chat-history img {
+    filter: invert(1) brightness(0.4);
+    width: 1rem;
+    height: 1rem;
+}
+
+.chat-header .delete-chat-history:hover img {
     filter: invert(1) brightness(1);
     transition: filter 0.2s;
 }
@@ -120,6 +148,7 @@
     border-radius: 2rem;
     overflow: hidden;
     padding: 1.2rem 1rem;
+    width: 100%;
 }
 
 .chat-messages {

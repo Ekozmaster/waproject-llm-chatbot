@@ -1,6 +1,9 @@
-from langchain_core.messages import HumanMessage
-from langgraph.checkpoint.memory import MemorySaver
+import os
+
+from langchain_core.messages import HumanMessage, RemoveMessage
 from langgraph.graph import START, MessagesState, StateGraph
+from langgraph.checkpoint.sqlite import SqliteSaver
+import sqlite3
 
 
 class LangchainApp:
@@ -10,7 +13,10 @@ class LangchainApp:
         workflow = StateGraph(state_schema=MessagesState)
         workflow.add_edge(START, "model")
         workflow.add_node("model", self.call_model)
-        self.memory = MemorySaver()
+        if not os.path.exists(".data"):
+            os.makedirs(".data")
+        self.conn = sqlite3.connect(".data/langchain.db", check_same_thread=False)
+        self.memory = SqliteSaver(self.conn)
         self.app = workflow.compile(checkpointer=self.memory)
 
     def call_model(self, state: MessagesState) -> dict:
@@ -24,8 +30,11 @@ class LangchainApp:
 
     def get_chat_history(self, thread_id: str):
         config = {"configurable": {"thread_id": thread_id}}
-        thread_id_store = self.memory.get(config)
-        if not thread_id_store:
-            return
+        messages = self.app.get_state(config).values.get('messages') or []
+        return messages
 
-        return thread_id_store.get('channel_values').get('messages')
+    def delete_messages(self, thread_id: str):
+        config = {"configurable": {"thread_id": thread_id}}
+        messages = self.app.get_state(config).values["messages"]
+        remove_calls = [RemoveMessage(id=m.id) for m in messages]
+        self.app.update_state(config, {"messages": remove_calls})
