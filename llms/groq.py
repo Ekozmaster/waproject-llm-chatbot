@@ -1,5 +1,9 @@
 import os
 
+from dotenv import load_dotenv
+load_dotenv()
+
+
 if not os.environ.get("GROQ_API_KEY"):
     raise RuntimeError("Couldn't find GROQ_API_KEY env var.")
 
