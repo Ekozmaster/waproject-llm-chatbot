@@ -1,0 +1,10 @@
+*
+*.pyc
+*.pyo
+
+!llms/
+!static/
+!main.py
+!requirements.txt
+
+llms/__pycache__

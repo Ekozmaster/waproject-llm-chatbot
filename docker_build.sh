@@ -1,0 +1,1 @@
+docker build . -t waproject-llm-chatbot
