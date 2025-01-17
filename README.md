@@ -39,3 +39,4 @@ pip install -r requirements.txt
 - There is no user auth nor paralel conversations support, so the Langchain checkpoints's `thread_id` is hardcoded to `1`.
 - [ShowdownJS](https://github.com/showdownjs/showdown) is used for markdown rendering from the LLMs responses.
 - I could've used a vector database like Chroma or Pinecone, but given the time constraints I went with Sqlite3 for now.
+- I added a few rules to play around with prompt engineering, so the LLM knows its name and don't disclose private or wrong information.

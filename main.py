@@ -2,7 +2,7 @@ import fastapi
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from llms.core import LangchainApp
+from llms.core import LangchainApp, STARTER_PROMPT
 from llms.groq import model
 
 
@@ -16,10 +16,18 @@ class ChatMessage(BaseModel):
     messages: list
 
 
+def clean_messages(messages):
+    return [
+        { "sender": msg.type, "content": msg.content }
+        for msg in messages
+        if msg.type != 'system'
+    ]
+
+
 @app.post("/send-message/")
 async def send_message(messages: ChatMessage):
     llm_response = langchain_app.send_message(msg=messages.messages[-1]['content'], thread_id='1')
-    return {"messages": [{"sender": msg.type, "content": msg.content } for msg in llm_response["messages"]]}
+    return {"messages": clean_messages(llm_response["messages"])}
 
 
 @app.get("/langchain-messages/")
@@ -27,7 +35,7 @@ async def get_langchain_messages():
     messages = langchain_app.get_chat_history('1')
     if not messages:
         return {"messages": []}
-    return {"messages": [{"sender": msg.type, "content": msg.content} for msg in messages]}
+    return {"messages": clean_messages(messages)}
 
 
 @app.delete("/delete-langchain-messages/")
@@ -38,7 +46,7 @@ async def delete_langchain_messages():
     messages = langchain_app.get_chat_history('1')
     if not messages:
         return {"messages": []}
-    return {"messages": [{"sender": msg.type, "content": msg.content} for msg in messages]}
+    return {"messages": clean_messages(messages)}
 
 
 app.mount("/", StaticFiles(directory="static", html=True), name="static")
